@@ -17,6 +17,17 @@ A LangChain-powered AI agent that connects to 10 market data providers as tools,
 | Tiingo | Yes (free) | Historical EOD prices, stock metadata |
 | Polygon.io | Yes (free) | Daily aggregates, ticker details |
 
+## LLM Options
+
+| Provider | Cost | Setup |
+|----------|------|-------|
+| **Ollama** | Free (local) | Install [ollama.com](https://ollama.com), run `ollama pull llama3.1` |
+| **Groq** | Free (cloud, 30 req/min) | Get key at [console.groq.com](https://console.groq.com/keys) |
+| OpenAI | ~$0.01-0.03/query | `OPENAI_API_KEY` in `.env` |
+| Anthropic | ~$0.01-0.04/query | `ANTHROPIC_API_KEY` in `.env` |
+
+Set `LLM_PROVIDER` in `.env` to your choice. Defaults to Ollama (fully free, runs locally).
+
 ## Setup
 
 ```bash
@@ -24,9 +35,9 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Fill in your API keys in `.env`. At minimum you need `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` for the LLM. The 3 free providers (Yahoo, Binance, CoinGecko) work immediately with no keys.
+Fill in your `.env`. For a **completely free** setup, just install Ollama — no API keys needed for the LLM or the 3 free data providers (Yahoo, Binance, CoinGecko).
 
-To quickly sign up for the remaining free-tier keys:
+To quickly sign up for the remaining free-tier data provider keys:
 
 ```bash
 python setup_keys.py
@@ -64,7 +75,7 @@ Providers with missing API keys are automatically skipped.
 
 ```
 ├── main.py               # Agent REPL — initialize and run queries
-├── config.py             # LLM provider selection (OpenAI / Anthropic)
+├── config.py             # LLM provider selection (Ollama / Groq / OpenAI / Anthropic)
 ├── providers/
 │   ├── __init__.py       # Collects all available tools
 │   ├── yahoo_finance.py  # Yahoo Finance (free)
